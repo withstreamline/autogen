@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "autogen-core"
 version = "0.4.3"
-license = {file = "LICENSE-CODE"}
+license = { file = "LICENSE-CODE" }
 description = "Foundational interfaces and agent runtime implementation for AutoGen"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -18,7 +18,7 @@ dependencies = [
     "pillow>=11.0.0",
     "typing-extensions>=4.0.0",
     "pydantic<3.0.0,>=2.10.0",
-    "protobuf~=4.25.1",
+    "protobuf>=5.29.1,<6.0.0",
     "opentelemetry-api>=1.27.0",
     "jsonref~=1.1.0",
 ]
@@ -80,7 +80,12 @@ dev = [
 
 [tool.ruff]
 extend = "../../pyproject.toml"
-exclude = ["build", "dist", "src/autogen_core/application/protos", "tests/protos"]
+exclude = [
+    "build",
+    "dist",
+    "src/autogen_core/application/protos",
+    "tests/protos",
+]
 include = ["src/**", "docs/**/*.ipynb", "tests/**"]
 
 [tool.ruff.lint.per-file-ignores]
@@ -98,9 +103,7 @@ testpaths = ["tests"]
 asyncio_default_fixture_loop_scope = "session"
 
 [tool.nbqa.addopts]
-mypy = [
-    "--disable-error-code=top-level-await"
-]
+mypy = ["--disable-error-code=top-level-await"]
 
 [tool.poe]
 include = "../../shared_tasks.toml"
@@ -130,4 +133,3 @@ docs-serve = "sphinx-autobuild --watch src docs/src docs/build --port 8000 --job
 docs-check = "sphinx-build --fail-on-warning docs/src docs/build"
 
 docs-check-examples = "sphinx-build -b code_lint docs/src docs/build"
-
